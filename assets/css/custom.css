@@ -1,0 +1,99 @@
+.dropdown.open .dropdown-menu,
+.navbar .dropdown-menu {
+	max-height: 164px;
+	overflow: scroll;
+}
+
+.main-content a {
+	color: #c00;
+	text-decoration: none;
+	border-bottom: 1px dotted #C00;
+}
+
+.main-content a:hover {
+	color: #333;
+	text-decoration: none;
+}
+
+.span1 p {
+	font-color:#bbb;
+	font-size: 9px;
+	text-transform: uppercase;
+	margin-bottom: 0px;
+	
+}
+
+.ego-icon {
+	border: 1px solid #ddd;
+	padding: 1px;
+}
+
+.row {
+	margin-bottom: 20px;
+}
+
+.title a {
+	color: #000;
+	border-bottom: 0px;
+}
+
+
+
+.post-thumb {
+	max-width: 250px;
+	min-width: 150px;
+	float: left;
+	margin-right: 20px;
+	border: 1px solid #ddd;
+	padding: 1px;
+}
+
+.content {
+	
+}
+
+.submitted {
+	color: #bbb;
+	font-size: 11px;
+}
+
+.span8 {
+	border-bottom: 1px solid #ddd;
+	padding-bottom: 30px;
+	overflow: auto;
+}
+
+.dropdown-menu li > a:hover, .dropdown-menu .active > a, .dropdown-menu .active > a:hover {
+	color: white;
+	text-decoration: none;
+	background-color: #C00;
+}
+
+@media (max-width: 767px) {
+	.ego-icon {
+		display: none;
+	}
+}
+
+
+@media screen and (max-width: 480px) {
+	.row h2 {
+		font-size: 18px;
+		line-height: 20px;
+	}
+	
+	.row
+	
+	.span8, .row {
+		margin-bottom: 10px;
+	}
+	
+	.ego-icon, .post-thumb {
+		display: none;
+	}
+	
+	
+
+
+
+}
