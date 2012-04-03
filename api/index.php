@@ -47,17 +47,17 @@ function get_all(){
 		array_push($post_ids,$post['id']);
 		array_push($post_sites,$post['site_id']);
 		array_push($post_links,$post['article_link']);
-		array_push($post_times,$post['article_time']);	
+		array_push($post_times,days_ago($post['article_time']));
 	}
 	
 	while($esites = mysql_fetch_array($ego_sites)){
-		array_push($the_sites,$esites['image']);	
+		array_push($the_sites,$esites['image']);
 	}
 	
 	for($i = 0; $i < count($article_ids); $i++){
 		
 		//echo $site;
-		$article = array('article'=>array('id'=>$post_sites[$i],'title'=>$article_title[$i],'origin'=>$post_sites[$i],'content'=>html_entity_decode($article_content[$i]),'url'=>$post_links[$i],array('sites'=>$sites)));
+		$article = array('article'=>array('id'=>$post_sites[$i],'title'=>$article_title[$i],'origin'=>$post_sites[$i],'content'=>html_entity_decode($article_content[$i]),'url'=>$post_links[$i], 'date'=>$post_times[$i], array('sites'=>$sites)));
 			
 		
 		array_push($the_articles, $article);
@@ -69,4 +69,19 @@ function get_all(){
 function filter($f){
 	
 }
+
+function days_ago($time){
+	$then = strtotime($time);
+	$diff = time() - $then;
+	$days_ago = floor($diff/(60*60*24));
+	if($days_ago == 0){
+		$days = "today";
+	} else if($days_ago == 1){
+		$days = "yesterday";
+	} else {
+		$days = $days_ago . " days ago";
+	}
+	return $days;
+}
+
 ?>
