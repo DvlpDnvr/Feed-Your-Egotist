@@ -73,6 +73,9 @@ $feed->handle_content_type();
 				$the_content = preg_replace('/National/', '', $item->get_content(), 1);
 				$the_content = preg_replace('/Local/', '', $the_content, 1);
 				$the_content = strip_tags($the_content);
+				$the_content = str_replace('Reddit  Facebook  StumbleUpon  Twitter','',$the_content);
+				$the_content = str_replace('Via.','',$the_content);
+				
 				$the_content = trim($the_content);
 				$the_content = htmlentities($the_content);
 				$next="0";
@@ -114,7 +117,7 @@ $feed->handle_content_type();
 					
 					if($next == "0" && $dupe=="0"){
 					//add to database
-						if($article_insert = mysql_query("INSERT INTO ego_articles(article_title, article_content, article_time) VALUES('" . htmlentities($item->get_title()) . "','" . mysql_real_escape_string($the_content) . "','" . $item->get_date('Y-m-d H:i:s') . "')")){
+						if($article_insert = mysql_query("INSERT INTO ego_articles(article_title, article_content, article_time, article_image) VALUES('" . htmlentities($item->get_title()) . "','" . mysql_real_escape_string($the_content) . "','" . $item->get_date('Y-m-d H:i:s') . "','" . first_image($item->get_content()) . "')")){
 							//for some reason mysql_insert_id isn't working, so i'm doing it manually.
 							$insert_id = mysql_insert_id();
 							mysql_query("INSERT INTO ego_posts(article_id, site_id, article_link, article_time) VALUES('" . $insert_id . "','" . $sites['id'] . "','" . $item->get_permalink() . "','" . $item->get_date('Y-m-d H:i:s') . "')");
@@ -132,3 +135,19 @@ $feed->handle_content_type();
 			<!-- From here on, we're no longer using data from the feed. -->
 			<?php endif; ?>
 <?php } ?>
+
+<?php
+//get first image from feed
+function first_image($content) {
+	$first_img = '';
+	$output = preg_match_all('/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $content, $matches);
+	$first_img = $matches [1] [0];
+	//if it's a twitter logo, disregard since it's their social crap
+	$findme = "twitter.png";
+	$pos = strpos($first_img, $findme);
+	if($pos !== false){
+		$first_img='';
+	}
+	return $first_img;
+}
+?>
