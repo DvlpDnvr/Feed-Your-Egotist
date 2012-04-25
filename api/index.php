@@ -57,7 +57,7 @@ function get_all(){
 	for($i = 0; $i < count($article_ids); $i++){
 		
 		//echo $site;
-		$article = array('article'=>array('id'=>$post_sites[$i],'title'=>$article_title[$i],'origin'=>$post_sites[$i],'content'=>html_entity_decode($article_content[$i]),'url'=>$post_links[$i], 'date'=>$post_times[$i], array('sites'=>$sites)));
+		$article = array('article'=>array('id'=>$post_sites[$i],'image'=>$the_sites[$post_sites[$i]-1],'title'=>$article_title[$i],'origin'=>$post_sites[$i],'content'=>html_entity_decode($article_content[$i]),'url'=>$post_links[$i], 'date'=>$post_times[$i], array('sites'=>$sites)));
 			
 		
 		array_push($the_articles, $article);
