@@ -10,6 +10,12 @@
   right: 5em;
 }
 
+.twitter {
+  position: absolute;
+  top: 1em;
+  right: 8em;
+}
+
 .main-content a {
 	color: #c00;
 	text-decoration: none;
