@@ -16,15 +16,14 @@
   right: 8em;
 }
 
-.main-content a {
-	color: #c00;
-	text-decoration: none;
-	border-bottom: 1px dotted #C00;
+a {
+  color: #0088cc;
+  text-decoration: none;
 }
-
-.main-content a:hover {
-	color: #333;
-	text-decoration: none;
+a:hover {
+  color: #005580;
+  text-decoration: none;
+  border-bottom: 1px dotted #005580;
 }
 
 .span1 p {
@@ -78,7 +77,7 @@
 .dropdown-menu li > a:hover, .dropdown-menu .active > a, .dropdown-menu .active > a:hover {
 	color: white;
 	text-decoration: none;
-	background-color: #C00;
+	background-color: #666;
 }
 
 @media (max-width: 767px) {
