@@ -4,6 +4,12 @@
 	overflow: scroll;
 }
 
+.rss {
+  position: absolute;
+  top: 1em;
+  right: 5em;
+}
+
 .main-content a {
 	color: #c00;
 	text-decoration: none;
