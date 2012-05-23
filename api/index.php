@@ -4,22 +4,25 @@ include('config.php');
 // DEFINE REQUEST
 $request = $_GET['request'];
 $filter = $_GET['filter'];
-
+$page = $_GET['page'];
+if($page == ""){
+	$page=0;
+}
 $f="";
 
 switch($request){
 	case "all":
-		get_all();
+		get_all($page);
 	break;
 	case "posts":
-		get_posts();
+		get_posts($page);
 	break;
 	case "editorials":
-		get_editorials();
+		get_editorials($page);
 	break;
 }
 
-function get_all(){
+function get_all($page){
 	
 	// VARS
 	$the_articles = array();
@@ -29,7 +32,7 @@ function get_all(){
 	}
 	
 	// GET POSTS
-	$articles = mysql_query("SELECT a.article_title, a.article_content, a.article_time, a.article_image, p.article_link, s.image FROM ego_posts AS p LEFT JOIN ego_articles AS a ON p.article_id = a.id LEFT JOIN ego_sites AS s ON s.id = p.site_id " . $f . " ORDER BY article_time DESC LIMIT 0,20") or die(mysql_error());
+	$articles = mysql_query("SELECT a.article_title, a.article_content, a.article_time, a.article_image, p.article_link, s.image FROM ego_posts AS p LEFT JOIN ego_articles AS a ON p.article_id = a.id LEFT JOIN ego_sites AS s ON s.id = p.site_id " . $f . " ORDER BY article_time DESC LIMIT " . $page*20 . ",20") or die(mysql_error());
 	
 	
 	while($article = mysql_fetch_array($articles)){
@@ -52,7 +55,7 @@ function get_all(){
 	echo json_encode($the_articles);
 }
 
-function get_posts(){
+function get_posts($page){
 	
 	// VARS
 	$the_posts = array();
@@ -62,7 +65,7 @@ function get_posts(){
 	}
 	
 	// GET POSTS
-	$posts = mysql_query("SELECT a.article_title, a.article_content, a.article_time, a.article_image, p.article_link, s.image FROM ego_posts AS p LEFT JOIN ego_articles AS a ON p.article_id = a.id LEFT JOIN ego_sites AS s ON s.id = p.site_id WHERE p.article_link NOT LIKE '%/editorial/%' " . $f . " ORDER BY article_time DESC LIMIT 0,20");
+	$posts = mysql_query("SELECT a.article_title, a.article_content, a.article_time, a.article_image, p.article_link, s.image FROM ego_posts AS p LEFT JOIN ego_articles AS a ON p.article_id = a.id LEFT JOIN ego_sites AS s ON s.id = p.site_id WHERE p.article_link NOT LIKE '%/editorial/%' " . $f . " ORDER BY article_time DESC LIMIT " . $page*20 . ",20");
 	
 	while($post = mysql_fetch_array($posts)){
 		//truncate article and add ... if needed
@@ -84,7 +87,7 @@ function get_posts(){
 	echo json_encode($the_posts);
 }
 
-function get_editorials(){
+function get_editorials($page){
 	
 	// VARS
 	$the_editorials = array();
@@ -94,7 +97,7 @@ function get_editorials(){
 	}
 	
 	// GET POSTS
-	$editorials = mysql_query("SELECT a.article_title, a.article_content, a.article_time, a.article_image, p.article_link, s.image FROM ego_posts AS p LEFT JOIN ego_articles AS a ON p.article_id = a.id LEFT JOIN ego_sites AS s ON s.id = p.site_id WHERE p.article_link LIKE '%/editorial/%' " . $f . " ORDER BY article_time DESC LIMIT 0,20");
+	$editorials = mysql_query("SELECT a.article_title, a.article_content, a.article_time, a.article_image, p.article_link, s.image FROM ego_posts AS p LEFT JOIN ego_articles AS a ON p.article_id = a.id LEFT JOIN ego_sites AS s ON s.id = p.site_id WHERE p.article_link LIKE '%/editorial/%' " . $f . " ORDER BY article_time DESC LIMIT " . $page*20 . ",20");
 	
 	while($editorial = mysql_fetch_array($editorials)){
 		//truncate article and add ... if needed
